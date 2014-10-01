@@ -1,18 +1,15 @@
 var split = require('split');
 var through = require('through2');
-var writeonly = require('write-only-stream');
+var combine = require('stream-combiner2');
 
-module.exports = function (cb) {
+module.exports = function () {
     var current = { name: '_root', positions: [], cells: [] };
-    var sp = split();
-    sp.pipe(through(write, flush));
-    if (cb) sp.on('object', cb);
-    return writeonly(sp);
+    return combine([ split(), through.obj(write, end) ]);
     
     function write (buf, enc, next) {
         var line = buf.toString('utf8');
         if (/^o\s+/.test(line)) {
-            flush();
+            flush.call(this);
             var name = line.replace(/^o\s+/, '');
             current = { name: name, positions: [], cells: [] };
         }
@@ -29,7 +26,12 @@ module.exports = function (cb) {
     
     function flush () {
         if (current.positions.length || current.cells.length) {
-            sp.emit('object', current);
+            this.push(current);
         }
+    }
+    
+    function end () {
+        flush.call(this);
+        this.push(null);
     }
 };

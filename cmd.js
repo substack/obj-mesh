@@ -1,4 +1,6 @@
 var objmesh = require('./');
-process.stdin.pipe(objmesh(function (obj) {
-    console.log(obj);
-}));
+var stringify = require('JSONStream').stringify;
+process.stdin.pipe(objmesh())
+    .pipe(stringify())
+    .pipe(process.stdout)
+;
