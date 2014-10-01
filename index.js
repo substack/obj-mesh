@@ -4,6 +4,7 @@ var combine = require('stream-combiner2');
 
 module.exports = function () {
     var current = { name: '_root', positions: [], cells: [] };
+    var voffset = 1;
     return combine([ split(), through.obj(write, end) ]);
     
     function write (buf, enc, next) {
@@ -14,11 +15,15 @@ module.exports = function () {
             current = { name: name, positions: [], cells: [] };
         }
         else if (/^v\s+/.test(line)) {
-            var pts = line.split(/\s+/).slice(1).map(Number);
+            var pts = line.split(/\s+/).slice(1)
+                .map(function (x) { return Number(x) / 100 })
+            ;
             current.positions.push(pts);
         }
         else if (/^f\s+/.test(line)) {
-            var cells = line.split(/\s+/).slice(1).map(Number);
+            var cells = line.split(/\s+/).slice(1)
+                .map(function (x) { return Number(x) - voffset })
+            ;
             current.cells.push(cells);
         }
         next();
@@ -26,6 +31,7 @@ module.exports = function () {
     
     function flush () {
         if (current.positions.length || current.cells.length) {
+            voffset += current.positions.length;
             this.push(current);
         }
     }
