@@ -21,10 +21,12 @@ module.exports = function () {
             current.positions.push(pts);
         }
         else if (/^f\s+/.test(line)) {
-            var cells = line.split(/\s+/).slice(1)
+            var cells = line.replace(/^f\s+/,'').split(/[\s\/]+/)
                 .map(function (x) { return Number(x) - voffset })
             ;
-            current.cells.push(cells);
+            for (var i = 3; i <= cells.length; i++) {
+                current.cells.push(cells.slice(i-3,i));
+            }
         }
         next();
     }
