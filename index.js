@@ -24,9 +24,12 @@ module.exports = function () {
             var cells = line.replace(/^f\s+/,'').split(/[\s\/]+/)
                 .map(function (x) { return Number(x) - voffset })
             ;
+            /*
             for (var i = 3; i <= cells.length; i++) {
                 current.cells.push(cells.slice(i-3,i));
             }
+            */
+            current.cells.push(cells.slice(0,3));
         }
         next();
     }
