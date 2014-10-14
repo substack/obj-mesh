@@ -38,3 +38,34 @@ shell.on('gl-render', function () {
     }
 });
 ```
+
+# methods
+
+``` js
+var objmesh = require('obj-mesh')
+```
+
+## var stream = objmesh()
+
+Return a transform `stream` that expects to be written obj file contents and
+outputs an object of the form that
+[mesh-viewer](https://npmjs.org/package/mesh-viewer) for each object group in
+the input source file.
+
+Each object has:
+
+* row.positions - an array of `[x,y,z]` arrays for each point in the mesh
+* row.cells - an array of `[i,j,k,...]` point indexes for each point in
+`row.positions`
+
+# install
+
+With [npm](https://npmjs.org) do:
+
+```
+npm install obj-mesh
+```
+
+# license
+
+MIT
