@@ -1,0 +1,37 @@
+{
+  "name": "obj-mesh",
+  "version": "1.0.0",
+  "description": "parse an obj file into the format that mesh-viewer understands",
+  "main": "index.js",
+  "dependencies": {
+    "split": "~0.3.0",
+    "stream-combiner2": "^1.0.2",
+    "through2": "~1.1.1"
+  },
+  "devDependencies": {
+    "tape": "^2.13.2"
+  },
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/substack/obj-mesh.git"
+  },
+  "homepage": "https://github.com/substack/obj-mesh",
+  "keywords": [
+    "obj",
+    "parser",
+    "mesh",
+    "stackgl",
+    "webgl",
+    "3d",
+    "format"
+  ],
+  "author": {
+    "name": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net"
+  },
+  "license": "MIT"
+}

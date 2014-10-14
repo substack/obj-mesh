@@ -1,8 +1,8 @@
 # obj-mesh
 
-convert an
+parse an
 [obj file](http://people.sc.fsu.edu/~jburkardt/data/obj/obj.html)
-into the format that
+into the object format that
 [mesh-viewer](https://npmjs.org/package/mesh-viewer)
 understands
 
